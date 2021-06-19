@@ -68,5 +68,5 @@ async function fetchAvailability () {
   }
 }
 
-// setInterval(fetchAvailability, 60 * 3 * 1000);
-fetchAvailability();
+setInterval(fetchAvailability, 60 * 3 * 1000);
+// fetchAvailability();
