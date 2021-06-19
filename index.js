@@ -22,8 +22,9 @@ async function fetchAvailability () {
     const data = await res.json();
     data.centers.forEach(center => {
       center.sessions.forEach(session => {
-        if ((session.available_capacity_dose1 > 0) 
-          // && session.min_age_limit === 18
+        if (
+          (session.available_capacity_dose1 > 0) 
+          && (district  === '539' ? session.min_age_limit === 18 : session.min_age_limit >=18 )
           && session.vaccine === 'COVISHIELD') {
           availableSessions = [ ...availableSessions, {
             name: center.name,
@@ -36,6 +37,7 @@ async function fetchAvailability () {
         }
       })
     });
+    console.log(availableSessions.length);
     if (availableSessions.length > 0) {
       let html = `
         <table>
@@ -43,6 +45,7 @@ async function fetchAvailability () {
             <th>Name</th>
             <th>Date</th>
             <th>Vaccine</th>
+            <th>Min Age</th>
             <th>Dose 1</th>
             </tr>
       `;
@@ -53,6 +56,7 @@ async function fetchAvailability () {
             <td>${session.name}</td>
             <td>${session.date}</td>
             <td>${session.vaccine}</td>
+            <td>${session.age}</td>
             <td>${session.dose1}</td>
             </tr>
             `
@@ -64,5 +68,5 @@ async function fetchAvailability () {
   }
 }
 
-setInterval(fetchAvailability, 60 * 5 * 1000);
-// fetchAvailability();
+// setInterval(fetchAvailability, 60 * 3 * 1000);
+fetchAvailability();
