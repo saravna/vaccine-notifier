@@ -10,21 +10,21 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var mailOptions = {
-  from: process.env.mail,
-  to: process.env.to,
-  subject: 'Vaccine available !!',
-};
 
-module.exports = function(html) {
-  transporter.sendMail({
-    ...mailOptions,
-    html,
-  }, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+module.exports = function(html, to) {
+  return new Promise((resolve, reject) => {
+    transporter.sendMail({
+      to,
+      subject: 'Vaccine available !!',
+      html,
+    }, function(error, info){
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+        resolve(info);
+      }
+    });
+  })
 }
