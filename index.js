@@ -9,6 +9,7 @@ function getTwoDigit (digit) {
 }
 
 async function fetchAvailability () {
+  console.log(new Date(Date.now()));
   const date = new Date(Date.now());
   const dateInFormat = `${getTwoDigit(date.getDate())}-${getTwoDigit(date.getMonth() + 1)}-${date.getUTCFullYear()}`;
   let toList = [];
