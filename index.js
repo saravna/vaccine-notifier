@@ -23,7 +23,7 @@ async function fetchAvailability () {
     data.centers.forEach(center => {
       center.sessions.forEach(session => {
         if (
-          (session.available_capacity_dose2 > 0) 
+          (session.available_capacity_dose1 > 0) 
           && (district  === '539' ? session.min_age_limit === 18 : session.min_age_limit >=18 )
           && session.vaccine === 'COVISHIELD') {
           availableSessions = [ ...availableSessions, {
