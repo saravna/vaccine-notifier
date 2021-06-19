@@ -23,7 +23,7 @@ async function fetchAvailability () {
     data.centers.forEach(center => {
       center.sessions.forEach(session => {
         if (
-          (session.available_capacity_dose1 > 0) 
+          (session.available_capacity_dose2 > 0) 
           && (district  === '539' ? session.min_age_limit === 18 : session.min_age_limit >=18 )
           && session.vaccine === 'COVISHIELD') {
           availableSessions = [ ...availableSessions, {
@@ -40,24 +40,24 @@ async function fetchAvailability () {
     console.log(availableSessions.length);
     if (availableSessions.length > 0) {
       let html = `
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Vaccine</th>
-            <th>Min Age</th>
-            <th>Dose 1</th>
+        <table style="border-collapse: collapse;">
+          <tr style="border-collapse: collapse;">
+            <th style="border: 1px solid black; border-collapse: collapse;">Name</th>
+            <th style="border: 1px solid black; border-collapse: collapse;">Date</th>
+            <th style="border: 1px solid black; border-collapse: collapse;">Vaccine</th>
+            <th style="border: 1px solid black; border-collapse: collapse;">Min Age</th>
+            <th style="border: 1px solid black; border-collapse: collapse;">Dose 1</th>
             </tr>
       `;
             // <th>Dose 2</th>
       availableSessions.forEach(session => {
         html += `
           <tr>
-            <td>${session.name}</td>
-            <td>${session.date}</td>
-            <td>${session.vaccine}</td>
-            <td>${session.age}</td>
-            <td>${session.dose1}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">${session.name}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">${session.date}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">${session.vaccine}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">${session.age}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">${session.dose1}</td>
             </tr>
             `
             // <td>${session.dose2}</td>
