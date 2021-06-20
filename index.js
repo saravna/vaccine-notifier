@@ -69,5 +69,12 @@ async function fetchAvailability () {
   }
 }
 
-setInterval(fetchAvailability, 60 * 3 * 1000);
+// setInterval(fetchAvailability, 60 * 3 * 1000);
 // fetchAvailability();
+const cron = require('node-cron');
+
+var task = cron.schedule('* * * * *', () =>  {
+  fetchAvailability();
+});
+
+// task.destroy();
