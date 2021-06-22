@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const sendMail = require('./mailer');
+const beep = require('beepbeep');
 
 const url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict"
 
@@ -41,6 +42,8 @@ async function fetchAvailability () {
       });
       console.log(availableSessions.length);
       if (availableSessions.length > 0) {
+        beep(3);
+        console.table(availableSessions);
         let html = `
           <table style="border-collapse: collapse;">
             <tr style="border-collapse: collapse;">
@@ -78,8 +81,8 @@ async function fetchAvailability () {
 // fetchAvailability();
 const cron = require('node-cron');
 
-var task = cron.schedule('* * * * *', () =>  {
+var task = cron.schedule('*/2 * * * *', () =>  {
   fetchAvailability();
 });
 
-// task.destroy();
+task.destroy();
